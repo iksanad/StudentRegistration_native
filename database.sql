@@ -14,3 +14,21 @@ CREATE TABLE pendaftar (
     no_hp           VARCHAR(20),
     tgl_daftar      TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
+-- Tabel user untuk autentikasi
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password_hash VARCHAR(255) NOT NULL,
+    role ENUM('admin','user') DEFAULT 'admin',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+/*
+Untuk membuat user admin pertama, jalankan di MySQL (ganti HASH dengan hasil password_hash di PHP):
+
+INSERT INTO users (username, password_hash, role)
+VALUES ('admin', '$2y...hash_dari_password_hash...', 'admin');
+
+Atau gunakan halaman Registrasi Admin (index.php?action=register).
+*/

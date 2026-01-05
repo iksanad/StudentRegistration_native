@@ -5,6 +5,11 @@ class PendaftarController
 
     public function __construct()
     {
+        // pastikan hanya user yang sudah login yang bisa mengakses
+        if (empty($_SESSION['user_id'])) {
+            header("Location: index.php?action=login");
+            exit;
+        }
         $this->model = new Pendaftar();
     }
 
