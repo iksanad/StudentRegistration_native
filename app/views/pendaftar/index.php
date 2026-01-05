@@ -5,7 +5,10 @@ include 'app/views/layouts/header.php';
 ?>
 
 <h1 class="mb-3">Data Pendaftar</h1>
-<a href="index.php?action=create" class="btn btn-primary mb-3">Tambah Pendaftar</a>
+<?php if (!empty($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+    <a href="index.php?action=create" class="btn btn-primary mb-3">Tambah Pendaftar</a>
+<?php endif; ?>
+
 
 <?php if (!empty($status)): ?>
     <?php if ($status == 'sukses'): ?>
@@ -33,7 +36,9 @@ include 'app/views/layouts/header.php';
                         <th>Nama Ortu</th>
                         <th>No HP</th>
                         <th>Tgl Daftar</th>
-                        <th>Aksi</th>
+                        <?php if (!empty($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                            <th>Aksi</th>
+                        <?php endif; ?>
                     </tr>
                 </thead>
                 <tbody>
@@ -50,10 +55,12 @@ include 'app/views/layouts/header.php';
                         <td><?= htmlspecialchars($row['nama_ortu']); ?></td>
                         <td><?= htmlspecialchars($row['no_hp']); ?></td>
                         <td><?= $row['tgl_daftar']; ?></td>
+                        <?php if (!empty($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
                         <td>
                             <a href="index.php?action=edit&id=<?= $row['id']; ?>" class="btn btn-sm btn-warning">Edit</a>
                             <a href="index.php?action=delete&id=<?= $row['id']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('Yakin ingin menghapus data ini?');">Hapus</a>
                         </td>
+                        <?php endif; ?>
                     </tr>
                     <?php endwhile; ?>
                 </tbody>

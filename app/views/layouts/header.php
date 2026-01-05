@@ -21,9 +21,11 @@
         <li class="nav-item">
           <a class="nav-link" href="index.php?action=index">Data Pendaftar</a>
         </li>
+        <?php if (!empty($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
         <li class="nav-item">
           <a class="nav-link" href="index.php?action=create">Tambah Pendaftar</a>
         </li>
+        <?php endif; ?>
         <?php endif; ?>
       </ul>
       <ul class="navbar-nav ms-auto">
