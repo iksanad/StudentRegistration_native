@@ -202,6 +202,8 @@ class PendaftarController
     public function create()
     {
         $this->ensureAdmin();
+        $userModel = new User();
+        $users = $userModel->getAll();
         include 'app/views/pendaftar/create.php';
     }
 
@@ -277,6 +279,8 @@ class PendaftarController
             echo "Data tidak ditemukan.";
             return;
         }
+        $userModel = new User();
+        $users = $userModel->getAll();
         include 'app/views/pendaftar/edit.php';
     }
 

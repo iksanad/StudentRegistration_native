@@ -91,4 +91,26 @@ class User
         $result = $stmt->get_result();
         return $result->fetch_assoc();
     }
+
+    /**
+     * -------------------------------------------------------------------------
+     * Mengambil Semua Data User
+     * -------------------------------------------------------------------------
+     * Fungsi ini mengambil seluruh data user dari database.
+     * Digunakan untuk menampilkan dropdown pilihan user saat
+     * menghubungkan pendaftar dengan akun user.
+     * Data diurutkan berdasarkan nama lengkap secara ascending.
+     * 
+     * @return array Array berisi semua data user (id, username, nama_lengkap)
+     */
+    public function getAll()
+    {
+        $sql = "SELECT id, username, nama_lengkap FROM users ORDER BY nama_lengkap ASC";
+        $result = $this->db->query($sql);
+        $users = [];
+        while ($row = $result->fetch_assoc()) {
+            $users[] = $row;
+        }
+        return $users;
+    }
 }

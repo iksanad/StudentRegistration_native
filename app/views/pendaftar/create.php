@@ -15,6 +15,26 @@ include 'app/views/layouts/header.php';
             <div class="row">
                 <!-- Data Pribadi -->
                 <div class="col-md-8">
+                    <!-- Link ke Akun User -->
+                    <div class="mb-4 p-3 bg-light rounded">
+                        <h5 class="mb-3 text-success"><i class="bi bi-link-45deg me-2"></i>Hubungkan ke Akun User</h5>
+                        <div class="mb-3">
+                            <label class="form-label">Pilih Akun User (Opsional)</label>
+                            <select name="user_id" class="form-select">
+                                <option value="">-- Tidak dihubungkan --</option>
+                                <?php if (!empty($users)): ?>
+                                    <?php foreach ($users as $user): ?>
+                                        <option value="<?= $user['id']; ?>">
+                                            <?= htmlspecialchars($user['nama_lengkap'] ?: $user['username']); ?> 
+                                            (@<?= htmlspecialchars($user['username']); ?>)
+                                        </option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                            </select>
+                            <small class="text-muted">Hubungkan pendaftar ini ke akun user yang sudah terdaftar</small>
+                        </div>
+                    </div>
+
                     <h5 class="mb-3 text-primary"><i class="bi bi-person-vcard me-2"></i>Data Pribadi</h5>
                     
                     <div class="row">
