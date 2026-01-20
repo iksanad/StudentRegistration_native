@@ -1,52 +1,86 @@
 <?php
-$title = 'Registrasi Admin';
+$title = 'Registrasi Akun - PPDB Online';
 include 'app/views/layouts/header.php';
 ?>
 
 <div class="row justify-content-center">
-  <div class="col-md-4">
-    <h2 class="mb-3 text-center">Registrasi Admin</h2>
+    <div class="col-md-5 fade-in">
+        <div class="card auth-card">
+            <div class="card-header">
+                <i class="bi bi-person-plus-fill fs-1 d-block mb-2"></i>
+                <h4>Registrasi Akun Baru</h4>
+            </div>
+            <div class="card-body">
+                <?php if (!empty($success)): ?>
+                    <div class="alert alert-success">
+                        <i class="bi bi-check-circle me-2"></i>Registrasi berhasil! Silakan login.
+                    </div>
+                <?php endif; ?>
 
-    <?php if (!empty($success)): ?>
-      <div class="alert alert-success">Berhasil membuat user. Silakan login.</div>
-    <?php endif; ?>
-
-    <?php if (!empty($error)): ?>
-      <?php if ($error == 1): ?>
-        <div class="alert alert-danger">Username dan password wajib diisi.</div>
-      <?php elseif ($error == 2): ?>
-        <div class="alert alert-danger">Konfirmasi password tidak sama.</div>
-      <?php elseif ($error == 3): ?>
-        <div class="alert alert-danger">Username sudah digunakan.</div>
-      <?php else: ?>
-        <div class="alert alert-danger">Terjadi kesalahan saat menyimpan data.</div>
-      <?php endif; ?>
-    <?php endif; ?>
-
-    <div class="card">
-      <div class="card-body">
-        <form action="index.php?action=storeRegister" method="post">
-          <div class="mb-3">
-            <label class="form-label">Username</label>
-            <input type="text" name="username" class="form-control" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Password</label>
-            <input type="password" name="password" class="form-control" required>
-          </div>
-          <div class="mb-3">
-            <label class="form-label">Konfirmasi Password</label>
-            <input type="password" name="confirm_password" class="form-control" required>
-          </div>
-          <button type="submit" class="btn btn-primary w-100">Daftar</button>
-        </form>
-      </div>
+                <?php if (!empty($error)): ?>
+                    <div class="alert alert-danger">
+                        <i class="bi bi-exclamation-circle me-2"></i>
+                        <?php
+                        switch ($error) {
+                            case '1': echo 'Username dan password wajib diisi.'; break;
+                            case '2': echo 'Password tidak cocok.'; break;
+                            case '3': echo 'Username sudah digunakan.'; break;
+                            case '4': echo 'Gagal menyimpan data. Silakan coba lagi.'; break;
+                            default: echo 'Terjadi kesalahan.';
+                        }
+                        ?>
+                    </div>
+                <?php endif; ?>
+                
+                <form action="index.php?action=storeRegister" method="post">
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="bi bi-person-badge me-1"></i>Nama Lengkap
+                        </label>
+                        <input type="text" name="nama_lengkap" class="form-control" placeholder="Nama lengkap Anda">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="bi bi-person me-1"></i>Username
+                        </label>
+                        <input type="text" name="username" class="form-control" placeholder="Pilih username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="bi bi-lock me-1"></i>Password
+                        </label>
+                        <input type="password" name="password" class="form-control" placeholder="Minimal 6 karakter" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">
+                            <i class="bi bi-lock-fill me-1"></i>Konfirmasi Password
+                        </label>
+                        <input type="password" name="confirm_password" class="form-control" placeholder="Ulangi password" required>
+                    </div>
+                    <div class="mb-4">
+                        <label class="form-label">
+                            <i class="bi bi-person-badge me-1"></i>Daftar Sebagai
+                        </label>
+                        <select name="role" class="form-select">
+                            <option value="user">User (Peserta Didik/Orang Tua)</option>
+                            <option value="admin">Admin (Petugas Sekolah)</option>
+                        </select>
+                        <small class="text-muted">Pilih sesuai peran Anda</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100 py-2">
+                        <i class="bi bi-person-plus me-1"></i>Daftar
+                    </button>
+                </form>
+                
+                <hr class="my-4">
+                
+                <p class="text-center mb-0">
+                    Sudah punya akun? 
+                    <a href="index.php?action=login" class="text-decoration-none">Login di sini</a>
+                </p>
+            </div>
+        </div>
     </div>
-
-    <p class="mt-3 text-center">
-      Sudah punya akun? <a href="index.php?action=login">Login di sini</a>
-    </p>
-  </div>
 </div>
 
 <?php include 'app/views/layouts/footer.php'; ?>
